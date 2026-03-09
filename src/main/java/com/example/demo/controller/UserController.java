@@ -1,0 +1,93 @@
+package com.example.demo.controller;
+
+import com.example.demo.entity.User;
+import com.example.demo.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+/**
+ * 用户控制器
+ */
+@RestController
+@RequestMapping("/api/users")
+public class UserController {
+    
+    @Autowired
+    private UserService userService;
+    
+    /**
+     * 根据 ID 获取用户（演示缓存读取）
+     * GET /api/users/1
+     */
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
+    }
+    
+    /**
+     * 根据用户名获取用户（演示缓存读取）
+     * GET /api/users/username/admin
+     */
+    @GetMapping("/username/{username}")
+    public User getUserByUsername(@PathVariable String username) {
+        return userService.getUserByUsername(username);
+    }
+    
+    /**
+     * 创建新用户
+     * POST /api/users
+     */
+    @PostMapping
+    public User createUser(@RequestBody User user) {
+        return userService.saveUser(user);
+    }
+    
+    /**
+     * 更新用户信息
+     * PUT /api/users
+     */
+    @PutMapping
+    public User updateUser(@RequestBody User user) {
+        return userService.saveUser(user);
+    }
+    
+    /**
+     * 删除用户
+     * DELETE /api/users/1
+     */
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+    }
+    
+    /**
+     * 获取所有用户（不缓存）
+     * GET /api/users/all
+     */
+    @GetMapping("/all")
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
+    
+    /**
+     * 清空缓存
+     * POST /api/users/cache/clear
+     */
+    @PostMapping("/cache/clear")
+    public String clearCache() {
+        userService.clearAllCache();
+        return "缓存已清空";
+    }
+    
+    /**
+     * 重新初始化布隆过滤器
+     * POST /api/users/bloom-filter/init
+     */
+    @PostMapping("/bloom-filter/init")
+    public String initBloomFilter() {
+        userService.initBloomFilter();
+        return "布隆过滤器已重新初始化";
+    }
+}
