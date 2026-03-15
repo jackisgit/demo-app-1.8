@@ -26,4 +26,12 @@ public class HelloController {
                 "time", LocalDateTime.now().toString()
         );
     }
+
+    @GetMapping("/new-hello")
+    public Map<String, Object> newHello() {
+        return Map.of(
+                "message", "newHelloWorld",
+                "time", LocalDateTime.now().toString()
+        );
+    }
 }
