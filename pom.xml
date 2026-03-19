@@ -57,6 +57,12 @@
             <artifactId>redisson-spring-boot-starter</artifactId>
             <version>3.27.1</version>
         </dependency>
+
+        <!-- Spring AOP -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
