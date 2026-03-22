@@ -4,7 +4,7 @@ import com.example.demo.annotation.OperationLog;
 import com.example.demo.entity.OperationLogEntity;
 import com.example.demo.mapper.OperationLogMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
