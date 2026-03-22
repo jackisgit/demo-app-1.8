@@ -17,6 +17,9 @@ import java.util.List;
  */
 @Service
 public class UserService {
+
+    @Autowired
+    private com.example.demo.bean.LifecycleDemoBean lifecycleDemoBean;
     
     @Autowired
     private UserRepository repository;
@@ -145,5 +148,6 @@ public class UserService {
         System.out.println("【布隆过滤器】初始化完成，共加载 " + allUsers.size() + " 个用户");
         System.out.println("【布隆过滤器】用户 ID 布隆过滤器预计元素数量：10000, 误判率：1%");
         System.out.println("【布隆过滤器】用户名布隆过滤器预计元素数量：10000, 误判率：1%");
+
     }
 }
