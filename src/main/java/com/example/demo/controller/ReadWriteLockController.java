@@ -175,34 +175,34 @@ public class ReadWriteLockController {
         
         result.put("说明", "Redis 读写锁演示 API - 基于 Redisson 实现");
         
-        result.put("核心概念", Map.of(
-            "读锁（共享锁）", "多个线程可以同时获取，适合并发读场景",
-            "写锁（排他锁）", "同一时间只有一个线程能获取，保证写操作独占",
-            "互斥规则", "读锁和写锁不能同时存在"
-        ));
+        Map<String, Object> coreConcepts = new HashMap<>();
+        coreConcepts.put("读锁（共享锁）", "多个线程可以同时获取，适合并发读场景");
+        coreConcepts.put("写锁（排他锁）", "同一时间只有一个线程能获取，保证写操作独占");
+        coreConcepts.put("互斥规则", "读锁和写锁不能同时存在");
+        result.put("核心概念", coreConcepts);
         
-        result.put("重要提醒", Map.of(
-            "问题", "如果读操作加锁但写操作不加锁，写操作不会被阻塞",
-            "后果", "会导致数据不一致（脏读、不可重复读）",
-            "解决方案", "读写操作都必须加对应的锁"
-        ));
+        result.put("重要提醒", new HashMap<String, Object>() {{
+            put("问题", "如果读操作加锁但写操作不加锁，写操作不会被阻塞");
+            put("后果", "会导致数据不一致（脏读、不可重复读）");
+            put("解决方案", "读写操作都必须加对应的锁");
+        }});
+                
+        Map<String, Object> apiList = new HashMap<>();
+        apiList.put("GET /rwlock/read?key=xxx", "单个读操作（使用读锁）");
+        apiList.put("POST /rwlock/write?key=xxx&value=yyy", "单个写操作（使用写锁）");
+        apiList.put("GET /rwlock/concurrent-read?key=xxx&count=5", "并发读演示（观察读锁共享）");
+        apiList.put("GET /rwlock/mixed-demo?key=xxx", "读写混合演示（观察读写互斥）");
+        apiList.put("GET /rwlock/problem-demo?key=xxx", "问题演示（写操作不加锁的后果）");
+        apiList.put("GET /rwlock/correct-demo?key=xxx", "正确演示（读写都加锁）");
+        apiList.put("GET /rwlock/current-data", "获取当前数据（无锁）");
+        apiList.put("GET /rwlock/help", "查看此帮助");
+        result.put("API 列表", apiList);
         
-        result.put("API列表", Map.of(
-            "GET /rwlock/read?key=xxx", "单个读操作（使用读锁）",
-            "POST /rwlock/write?key=xxx&value=yyy", "单个写操作（使用写锁）",
-            "GET /rwlock/concurrent-read?key=xxx&count=5", "并发读演示（观察读锁共享）",
-            "GET /rwlock/mixed-demo?key=xxx", "读写混合演示（观察读写互斥）",
-            "GET /rwlock/problem-demo?key=xxx", "问题演示（写操作不加锁的后果）",
-            "GET /rwlock/correct-demo?key=xxx", "正确演示（读写都加锁）",
-            "GET /rwlock/current-data", "获取当前数据（无锁）",
-            "GET /rwlock/help", "查看此帮助"
-        ));
-        
-        result.put("测试建议", Map.of(
-            "步骤1", "调用 /problem-demo 观察写操作不加锁的问题",
-            "步骤2", "调用 /correct-demo 观察读写都加锁的正确效果",
-            "观察", "对比两次演示的日志差异"
-        ));
+        result.put("测试建议", new HashMap<String, Object>() {{
+            put("步骤 1", "调用 /problem-demo 观察写操作不加锁的问题");
+            put("步骤 2", "调用 /correct-demo 观察读写都加锁的正确效果");
+            put("观察", "对比两次演示的日志差异");
+        }});
         
         return result;
     }
